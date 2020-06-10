@@ -28,3 +28,7 @@
 
 # Ignore contacts
 /territory.csv
+
+# Ignore territory boundary files
+/territories
+/territories/*
