@@ -32,3 +32,5 @@
 # Ignore territory boundary files
 /territories
 /territories/*
+
+.env
