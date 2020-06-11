@@ -26,9 +26,6 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-# Ignore contacts
-/territory.csv
-
 # Ignore territory boundary files
 /territories
 /territories/*
