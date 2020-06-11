@@ -33,4 +33,6 @@
 /territories
 /territories/*
 
+/lib/tasks/load_contacts.rake
+
 .env
