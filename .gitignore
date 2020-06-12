@@ -30,4 +30,7 @@
 /territories
 /territories/*
 
+# Ignore rake file for loading territory from CSV
+/lib/tasks/load_contacts.rake
+
 .env
