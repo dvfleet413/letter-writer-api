@@ -30,10 +30,7 @@
 /territories
 /territories/*
 
-<<<<<<< HEAD
-=======
 # Ignore rake file for loading territory from CSV
->>>>>>> heroku-branch
 /lib/tasks/load_contacts.rake
 
 .env
