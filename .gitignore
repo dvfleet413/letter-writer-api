@@ -26,13 +26,14 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-# Ignore contacts
-/territory.csv
-
 # Ignore territory boundary files
 /territories
 /territories/*
 
+<<<<<<< HEAD
+=======
+# Ignore rake file for loading territory from CSV
+>>>>>>> heroku-branch
 /lib/tasks/load_contacts.rake
 
 .env

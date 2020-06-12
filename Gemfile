@@ -34,6 +34,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'dotenv'
   gem 'dotenv-rails'
+  gem 'seed_dump'
 end
 
 group :development do
