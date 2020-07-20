@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_212936) do
+ActiveRecord::Schema.define(version: 2020_07_20_153224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 2020_06_10_212936) do
     t.datetime "updated_at", precision: 6, null: false
     t.float "lat"
     t.float "lng"
+  end
+
+  create_table "dncs", force: :cascade do |t|
+    t.string "address"
+    t.bigint "territory_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["territory_id"], name: "index_dncs_on_territory_id"
   end
 
   create_table "points", force: :cascade do |t|
@@ -47,5 +55,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_212936) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "dncs", "territories"
   add_foreign_key "points", "territories"
 end
