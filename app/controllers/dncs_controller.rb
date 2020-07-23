@@ -9,11 +9,21 @@ class DncsController < ApplicationController
     end
 
     def create
-        dnc = Dnc.new({address: params[:dnc], territory_id: params[:territory_id]})
+        dnc = Dnc.new(dnc_params)
         if dnc.save
             render json: dnc
         else
             render json: {eror: "unable to save"}, status: :bad_request
+        end
+    end
+
+    def update
+        dnc = Dnc.find_by_id(params[:id])
+        binding.pry
+        if dnc.update(dnc_params)
+            render json: dnc, status: :ok
+        else 
+            render json: {error: "unable to save"}, status: :bad_request
         end
     end
 
@@ -26,4 +36,9 @@ class DncsController < ApplicationController
             render json: {error: "unable to find DNC"}, status: :bad_request
         end
     end
+
+    private
+        def dnc_params
+            params.require(:dnc).permit(:address, :date, :territory_id)
+        end
 end
