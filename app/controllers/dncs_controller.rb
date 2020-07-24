@@ -19,7 +19,6 @@ class DncsController < ApplicationController
 
     def update
         dnc = Dnc.find_by_id(params[:id])
-        binding.pry
         if dnc.update(dnc_params)
             render json: dnc, status: :ok
         else 
