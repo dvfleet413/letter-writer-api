@@ -1,10 +1,14 @@
 class DncsController < ApplicationController
     def index
-        territory = Territory.find_by_id(params[:territory_id])
-        if territory
-          render json: territory.dncs
+        if params[:territory_id]
+            territory = Territory.find_by_id(params[:territory_id])
+            if territory
+                render json: territory.dncs
+            else
+                render json: {error: "unable to find territory"}, status: :bad_request
+            end
         else
-          render json: {error: "unable to find territory"}, statuss: :bad_request
+            render json: Dnc.all
         end
     end
 
