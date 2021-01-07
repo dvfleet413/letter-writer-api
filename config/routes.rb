@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   post '/login', to: "sessions#create"
   post '/logout', to: "sessions#destroy"
   get '/get_current_user', to: "sessions#get_current_user"
+  get '/get_daily_text', to: "text#todays_text"
   resources :contacts, only: [:index]
   resources :territories, only: [:index, :show] do 
     resources :dncs
