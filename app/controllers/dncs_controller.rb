@@ -8,7 +8,7 @@ class DncsController < ApplicationController
                 render json: {error: "unable to find territory"}, status: :bad_request
             end
         else
-            render json: Dnc.all
+            render json: Dnc.all, include: :territory
         end
     end
 
