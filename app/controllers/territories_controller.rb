@@ -1,4 +1,5 @@
 class TerritoriesController < ApplicationController
+
     def index
         territories = Territory.all
         render json: territories.to_json(only: [:id, :name])

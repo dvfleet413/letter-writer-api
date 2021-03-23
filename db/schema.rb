@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_23_201647) do
+ActiveRecord::Schema.define(version: 2021_03_23_163840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "congregations", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "api_access"
+  end
 
   create_table "contacts", force: :cascade do |t|
     t.string "name"
@@ -47,6 +54,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_201647) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "congregation_id", null: false
+    t.index ["congregation_id"], name: "index_territories_on_congregation_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,8 +63,12 @@ ActiveRecord::Schema.define(version: 2020_07_23_201647) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "congregation_id", null: false
+    t.index ["congregation_id"], name: "index_users_on_congregation_id"
   end
 
   add_foreign_key "dncs", "territories"
   add_foreign_key "points", "territories"
+  add_foreign_key "territories", "congregations"
+  add_foreign_key "users", "congregations"
 end

@@ -1,0 +1,2 @@
+class CongregationsController < ApplicationController
+end
