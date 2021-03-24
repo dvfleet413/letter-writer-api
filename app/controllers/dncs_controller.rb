@@ -13,11 +13,15 @@ class DncsController < ApplicationController
     end
 
     def create
-        dnc = Dnc.new(dnc_params)
-        if dnc.save
-            render json: dnc
+        if params[:territory_id]
+            dnc = Dnc.new(dnc_params)
+            if dnc.save
+                render json: dnc
+            else
+                render json: {eror: "unable to save"}, status: :bad_request
+            end
         else
-            render json: {eror: "unable to save"}, status: :bad_request
+            binding.pry
         end
     end
 

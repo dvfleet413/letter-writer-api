@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_23_163840) do
+ActiveRecord::Schema.define(version: 2021_03_24_202521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,18 @@ ActiveRecord::Schema.define(version: 2021_03_23_163840) do
     t.index ["territory_id"], name: "index_dncs_on_territory_id"
   end
 
+  create_table "external_contacts", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "phone"
+    t.bigint "congregation_id", null: false
+    t.float "lat"
+    t.float "lng"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["congregation_id"], name: "index_external_contacts_on_congregation_id"
+  end
+
   create_table "points", force: :cascade do |t|
     t.bigint "territory_id", null: false
     t.float "lat"
@@ -64,10 +76,12 @@ ActiveRecord::Schema.define(version: 2021_03_23_163840) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "congregation_id", null: false
+    t.string "role"
     t.index ["congregation_id"], name: "index_users_on_congregation_id"
   end
 
   add_foreign_key "dncs", "territories"
+  add_foreign_key "external_contacts", "congregations"
   add_foreign_key "points", "territories"
   add_foreign_key "territories", "congregations"
   add_foreign_key "users", "congregations"
