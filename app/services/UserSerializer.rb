@@ -6,7 +6,7 @@ class UserSerializer
     def to_serialized_json
         # @user.to_json(only: [:name], include: (congregation: only: [:name, :api_access]))
         @user.to_json(:include => {
-            :congregation => {:only => [:name, :api_access]}
+            :congregation => {:only => [:id, :name, :api_access]}
         },
         :only => [:id, :name])
     end

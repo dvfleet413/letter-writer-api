@@ -1,7 +1,7 @@
 class ExternalContactsController < ApplicationController
     def index
         set_congregation
-        contacts = congregation.external_contacts
+        contacts = @congregation.external_contacts
         render json: contacts.to_json(only: [:id, :name, :address, :phone, :lat, :lng])
     end
 
