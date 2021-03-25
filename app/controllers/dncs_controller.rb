@@ -21,7 +21,7 @@ class DncsController < ApplicationController
                 render json: {eror: "unable to save"}, status: :bad_request
             end
         else
-            binding.pry
+            BulkDncImportJob.perform_later(dnc_params[:dncs])
         end
     end
 
@@ -46,6 +46,6 @@ class DncsController < ApplicationController
 
     private
         def dnc_params
-            params.require(:dnc).permit(:address, :date, :territory_id)
+            params.require(:dnc).permit(:address, :date, :territory_id, dncs: [:address, :date, :territoryName])
         end
 end
