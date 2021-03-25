@@ -22,6 +22,7 @@ class DncsController < ApplicationController
             end
         else
             BulkDncImportJob.perform_later(dnc_params[:dncs])
+            render json: {message: "ok"}
         end
     end
 
