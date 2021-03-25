@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :contacts, only: [:index, :create]
   resources :congregations do
     resources :external_contacts, only: [:index, :create]
-    resources :territories, only: [:index, :show] do 
+    resources :territories, only: [:create, :index, :show, :update] do 
       resources :dncs
     end
     resources :dncs, only: [:index, :create]
