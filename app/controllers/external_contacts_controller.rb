@@ -7,21 +7,7 @@ class ExternalContactsController < ApplicationController
 
     def create
         set_congregation
-        params[:contacts].each do |row|
-            if row[:zipCode].length == 3
-                zipCode = "00#{row[:zipCode]}"
-            elsif row[:zipCode].length == 4
-                zipCode = "0#{row[:zipCode]}"
-            else
-                zipCode = row[:zipCode]
-            end
-            @congregation.external_contacts.create(
-                name: "#{row[:firstName]} #{row[:lastName]}",
-                phone: row[:phone],
-                address: "#{row[:address]}\n#{row[:city]}, #{row[:state]}  #{zipCode}",
-                lat: row[:lat],
-                lng: row[:lng])
-        end
+        BulkImportJob.perform_later(external_contacts_params[:contacts], @congregation)
         render json: {message: "ok"}.to_json
     end
 
@@ -31,6 +17,17 @@ class ExternalContactsController < ApplicationController
         end
 
         def external_contacts_params
-            params.require(:external_contact).permit(:contacts, :firstName, :lastName, :phone, :address, :city, :state, :zipCode, :lng, :lat)
+            params.require(:external_contact).permit(
+                :firstName,
+                :lastName,
+                :phone,
+                :address,
+                :city,
+                :state,
+                :zipCode,
+                :lng,
+                :lat,
+                contacts: [:firstName, :lastName, :phone, :address, :city, :state, :zipCode, :lng, :lat]
+            )
         end
 end
