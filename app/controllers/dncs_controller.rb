@@ -47,6 +47,6 @@ class DncsController < ApplicationController
 
     private
         def dnc_params
-            params.require(:dnc).permit(:address, :date, :publisher, :name, :description, :territory_id, dncs: [:address, :date, :territoryName])
+            params.require(:dnc).permit(:address, :date, :publisher, :name, :notes, :territory_id, dncs: [:address, :date, :territoryName])
         end
 end
