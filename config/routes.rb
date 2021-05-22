@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :external_contacts, only: [:index, :create]
     resources :territories, only: [:create, :index, :show, :update] do 
       resources :dncs
+      resources :assignments
     end
     resources :dncs, only: [:index, :create]
   end

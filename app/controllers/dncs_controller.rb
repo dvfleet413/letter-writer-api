@@ -18,7 +18,7 @@ class DncsController < ApplicationController
             if dnc.save
                 render json: dnc
             else
-                render json: {eror: "unable to save"}, status: :bad_request
+                render json: {error: "unable to save"}, status: :bad_request
             end
         else
             BulkDncImportJob.perform_later(dnc_params[:dncs])
