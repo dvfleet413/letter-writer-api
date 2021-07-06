@@ -7,7 +7,7 @@ class TerritoriesController < ApplicationController
 
     def show
         territory = Territory.find(params[:id])
-        render json: territory.to_json(include: {points: {only: [:lat, :lng]}}, only: :name)
+        render json: territory.to_json(include: [{points: {only: [:lat, :lng]}}, :dncs, :assignments], only: :name)
     end
 
     def update

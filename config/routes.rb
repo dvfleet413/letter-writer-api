@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/get_daily_text', to: "text#todays_text"
   resources :contacts, only: [:index, :create]
   resources :congregations do
-    resources :external_contacts, only: [:index, :create]
+    resources :external_contacts, only: [:index, :create, :destroy]
     resources :territories, only: [:create, :index, :show, :update] do 
       resources :dncs
       resources :assignments
