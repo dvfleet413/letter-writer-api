@@ -1,5 +1,5 @@
 cong = Congregation.create!(name: "English - Willimantic")
-cong.users.create(name: "WillimanticTerritory", password: "Psalm8318!")
+cong.users.create(name: "Username", password: "Password@123")
 
 t = cong.territories.create(name: "Ashford 01")
 t.points.build([
