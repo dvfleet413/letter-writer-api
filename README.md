@@ -1,24 +1,12 @@
-# README
+# Letter Writer API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is the backend for a contact/address management web app (frontend [here](https://github.com/davevanfleet/letter-writer))).
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Tech/Frameworks
+This project is built in Ruby on Rails.  It also uses the following technologies/frameworks:
+- PostgreSQL
+  
+## Install/Run this project
+- Fork and Clone this repo
+- `bundle install`
+- `rails s -p 8080`
