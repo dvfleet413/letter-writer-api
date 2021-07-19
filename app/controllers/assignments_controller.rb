@@ -20,6 +20,7 @@ class AssignmentsController < ApplicationController
             render json: @assignment, status: :ok
         else 
             render json: {error: "unable to save"}, status: :bad_request
+        end
     end
 
     def destroy
