@@ -43,4 +43,5 @@ class AssignmentsController < ApplicationController
 
         def set_assignment
             @assignment = Assignment.find(params[:id])
+        end
 end
