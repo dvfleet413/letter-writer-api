@@ -6,7 +6,8 @@ class AssignmentsController < ApplicationController
     end
 
     def create
-        assignment = Assignment.new(assignment_params)
+        set_territory
+        assignment = @territory.assignments.build(assignment_params)
         if assignment.save
             render json: assignment
         else
@@ -16,7 +17,7 @@ class AssignmentsController < ApplicationController
 
     def update
         set_assignment
-        if @assignment.update(dnc_params)
+        if @assignment.update(assignment_params)
             render json: @assignment, status: :ok
         else 
             render json: {error: "unable to save"}, status: :bad_request
@@ -31,7 +32,7 @@ class AssignmentsController < ApplicationController
 
     private
         def assignment_params
-            params.require(:assignment).permit(:check_out, :check_in, :publisher)
+            params.require(:assignment).permit(:checked_out, :checked_in, :publisher)
         end
 
         def set_congregation
