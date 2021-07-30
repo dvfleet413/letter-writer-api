@@ -15,7 +15,7 @@ class BulkImportJob < ApplicationJob
           phone: row[:phone],
           address: "#{row[:address]}\n#{row[:city]}, #{row[:state]}  #{zipCode}",
           lat: row[:lat],
-          lng: row[:lng])
+          lng: row[:lng]),
           lang: row[:lang]
       end
   end
