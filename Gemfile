@@ -30,6 +30,7 @@ gem 'jwt'
 gem 'httparty'
 gem 'nokogiri'
 gem 'open-uri'
+gem 'gps_tools'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -73,6 +73,7 @@ GEM
     ffi (1.15.3)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    gps_tools (0.1.0)
     httparty (0.18.1)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
@@ -193,6 +194,7 @@ DEPENDENCIES
   byebug
   dotenv
   dotenv-rails
+  gps_tools
   httparty
   jwt
   listen (~> 3.2)

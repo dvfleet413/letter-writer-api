@@ -2,7 +2,14 @@ class ExternalContactsController < ApplicationController
     def index
         set_congregation
         contacts = @congregation.external_contacts
-        render json: contacts.to_json(only: [:id, :name, :address, :phone, :lat, :lng])
+        if params[:territory_id]
+            set_territory
+            polygon = @territory.points.map { |point| [point.lat, point.lng] }
+            filtered_contacts = contacts.select{|contact| GPSTools.in_polygon?(polygon, [contact.lat, contact.lng])}
+            render json: filtered_contacts.to_json(only: [:id, :name, :address, :phone, :lat, :lng])
+        else 
+            render json: contacts.to_json(only: [:id, :name, :address, :phone, :lat, :lng])
+        end
     end
 
     def create
@@ -14,6 +21,10 @@ class ExternalContactsController < ApplicationController
     private
         def set_congregation
             @congregation = Congregation.find(params[:congregation_id])
+        end
+
+        def set_territory
+            @territory = Territory.find(params[:territory_id])
         end
 
         def external_contacts_params
