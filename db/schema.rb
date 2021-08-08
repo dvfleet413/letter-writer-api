@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_05_141006) do
+ActiveRecord::Schema.define(version: 2021_08_07_224507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 2021_08_05_141006) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["territory_id"], name: "index_assignments_on_territory_id"
+  end
+
+  create_table "cong_points", force: :cascade do |t|
+    t.bigint "congregation_id", null: false
+    t.float "lat"
+    t.float "lng"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["congregation_id"], name: "index_cong_points_on_congregation_id"
   end
 
   create_table "congregations", force: :cascade do |t|
@@ -97,6 +106,7 @@ ActiveRecord::Schema.define(version: 2021_08_05_141006) do
   end
 
   add_foreign_key "assignments", "territories"
+  add_foreign_key "cong_points", "congregations"
   add_foreign_key "dncs", "territories"
   add_foreign_key "external_contacts", "congregations"
   add_foreign_key "points", "territories"
