@@ -10,7 +10,8 @@ class UsersController < ApplicationController
         user = User.new(user_params)
         user.congregation = @congregation
         user.password = SecureRandom.base64(10)
-        if user.save!
+        if user.save
+            UserMailer.with(user: user).confirmation_email.deliver_later
             render json: UserSerializer.new(user).to_serialized_json
         else
             render json: {"message": "unable to create user"}, status: :bad_request
