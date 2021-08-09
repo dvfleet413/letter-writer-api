@@ -6,7 +6,7 @@ class ExternalContactsController < ApplicationController
             set_territory
             polygon = @territory.points.map { |point| [point.lat, point.lng] }
             filtered_contacts = contacts.select{|contact| GPSTools.in_polygon?(polygon, [contact.lat, contact.lng])}
-            render json: filtered_contacts.to_json(only: [:id, :name, :address, :phone, :lat, :lng])
+            render json: filtered_contacts.to_json(only: [:id, :name, :address, :phone, :lat, :lng, :lang])
         else 
             render json: contacts.to_json(only: [:id, :name, :address, :phone, :lat, :lng])
         end
@@ -38,7 +38,7 @@ class ExternalContactsController < ApplicationController
                 :zipCode,
                 :lng,
                 :lat,
-                contacts: [:firstName, :lastName, :phone, :address, :city, :state, :zipCode, :lng, :lat]
+                contacts: [:firstName, :lastName, :phone, :address, :city, :state, :zipCode, :lng, :lat, :lang]
             )
         end
 end
