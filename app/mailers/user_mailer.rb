@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-    default from: 'notifications@example.com'
+    default from: 'noreply@territorycounter.com'
 
     def confirmation_email
         @user = params[:user]
