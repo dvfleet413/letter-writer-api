@@ -1,11 +1,27 @@
 class CongregationsController < ApplicationController
     def create
         cong = Congregation.new(congregation_params)
-        if cong.save()
-            user = cong.users.build(user_params)
-            render json: cong
+
+        stripe_customer = Stripe::Customer.create({
+            name: congregation_params[:name],
+            email: user_params[:email]
+        })
+        
+        cong.stripe_customer_id = stripe_customer.id
+
+        if cong.save
+            user = User.new(user_params)
+            user.congregation = cong
+            user.password = SecureRandom.base64(10)
+            user.role = "Admin"
+            if user.save!
+                UserMailer.with(user: user).confirmation_email.deliver_later
+                render json: cong
+            else
+                render json: {"message": "unable to create user"}, status: :bad_request
+            end
         else
-            render json: {error: "unable to save"}, status: :bad_request
+            render json: {"message": "unable to save"}, status: :bad_request
         end
     end
 
@@ -15,6 +31,6 @@ class CongregationsController < ApplicationController
         end
 
         def user_params
-            params.require(:user).permit(:name, :password, :congregation_id)
+            params.require(:user).permit(:name, :email)
         end
 end
