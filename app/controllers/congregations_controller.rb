@@ -15,7 +15,8 @@ class CongregationsController < ApplicationController
             user.password = SecureRandom.base64(10)
             user.role = "Admin"
             if user.save!
-                UserMailer.with(user: user).confirmation_email.deliver_later
+                confirmation_url = "#{ENV["FRONTEND_URL"]}/confirm/#{generate_token({id: user.id})}"
+                UserMailer.with(user: user, confirmation_url: confirmation_url).confirmation_email.deliver_later
                 render json: cong
             else
                 render json: {"message": "unable to create user"}, status: :bad_request
