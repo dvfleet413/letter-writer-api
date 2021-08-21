@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Someone just registered for Territory Counter</h1>
+    <p>
+      <%= @cong.name %> just signed up at territorycounter.com
+    </p>
+    <p>
+      They are a <%= @cong.lang %> congreagtion and they <%= @cong.api_access ? "do" : "do not" %> have API access
+    </p>
+  </body>
+</html>

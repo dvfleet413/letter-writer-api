@@ -17,6 +17,11 @@ class CongregationsController < ApplicationController
             if user.save!
                 confirmation_url = "#{ENV["FRONTEND_URL"]}/confirm/#{generate_token({id: user.id})}"
                 UserMailer.with(user: user, confirmation_url: confirmation_url).confirmation_email.deliver_later
+                
+                if !cong.api_access
+                    UserMailer.with(cong: @cong).new_account_email_email.deliver_later
+                end
+
                 render json: cong
             else
                 render json: {"message": "unable to create user"}, status: :bad_request

@@ -32,6 +32,7 @@ class SubscriptionsController < ApplicationController
         })
         
         if @cong.save
+            UserMailer.with(cong: @cong).new_account_email_email.deliver_later
             render json: @cong.subscription
         else
             render json: {"message": "unable to create subscription"}, status: :bad_request
