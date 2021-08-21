@@ -19,7 +19,7 @@ class CongregationsController < ApplicationController
                 UserMailer.with(user: user, confirmation_url: confirmation_url).confirmation_email.deliver_later
                 
                 if !cong.api_access
-                    UserMailer.with(cong: @cong).new_account_email_email.deliver_later
+                    UserMailer.with(cong: @cong).new_account_email.deliver_later
                 end
 
                 render json: cong
