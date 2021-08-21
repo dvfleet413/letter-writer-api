@@ -4,6 +4,6 @@ class UserMailer < ApplicationMailer
     def confirmation_email
         @user = params[:user]
         @confirmation_url = params[:confirmation_url]
-        mail(to: @user.email, subject: 'Welcome to My Awesome Site')
+        mail(to: @user.email, subject: 'Welcome to The Territory Counter')
     end
 end

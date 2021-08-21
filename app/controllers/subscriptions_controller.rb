@@ -21,7 +21,7 @@ class SubscriptionsController < ApplicationController
            ] 
         })
 
-        subscription = @cong.subscription.build({
+        @cong.subscription = Subscription.create({
             creation_date: DateTime.now,
             stripe_id: stripe_subscription.id,
             current_period_end: DateTime.strptime(stripe_subscription.current_period_end.to_s, "%s"),
@@ -32,7 +32,7 @@ class SubscriptionsController < ApplicationController
         })
         
         if @cong.save
-            render json: subscription
+            render json: @cong.subscription
         else
             render json: {"message": "unable to create subscription"}, status: :bad_request
         end
