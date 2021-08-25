@@ -3,11 +3,16 @@ class ContactsController < ApplicationController
         set_congregation
         data_axle_service = DataAxleService.new(@cong)
 
-        current_contacts = Contact.all.select{|contact| GPSTools.in_polygon?(polygon, [contact.lat, contact.lng])}
+        current_contacts = Contact.all.select do |contact|
+            if GPSTools.in_polygon?(polygon, [contact.lat, contact.lng])
+                @cong.lang == "eng" ? true : contact.lang == @cong.lang
+            else
+                false
+            end
+        end
+
         current_count = current_contacts.length
-
         updated_contact_count = data_axle_service.get_count(polygon_params[:points])
-
 
         if current_count < updated_contact_count && (current_count / updated_contact_count) < 0.9
             contact_results = data_axle_service.get_contacts(polygon_params[:points])
@@ -18,6 +23,8 @@ class ContactsController < ApplicationController
         else
             contacts = current_contacts
         end
+
+        binding.pry
 
         render json: contacts.to_json, status: :ok
     end

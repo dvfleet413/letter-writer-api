@@ -4,4 +4,5 @@ class Congregation < ApplicationRecord
     has_many :external_contacts
     has_many :cong_points
     has_one :subscription
+    validates :lang, presence: true
 end
