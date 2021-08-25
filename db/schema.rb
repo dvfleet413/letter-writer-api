@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_20_201241) do
+ActiveRecord::Schema.define(version: 2021_08_25_160436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2021_08_20_201241) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "api_access"
     t.string "stripe_customer_id"
+    t.string "lang"
   end
 
   create_table "contacts", force: :cascade do |t|

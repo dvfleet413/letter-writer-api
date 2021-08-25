@@ -1,6 +1,33 @@
 class ContactsController < ApplicationController
     def index
-        contacts = Contact.all
-        render json: contacts.to_json(only: [:id, :name, :address, :phone, :lat, :lng])
+        set_congregation
+        data_axle_service = DataAxleService.new(@cong)
+
+        current_contacts = Contact.all.select{|contact| GPSTools.in_polygon?(polygon, [contact.lat, contact.lng])}
+        current_count = current_contacts.length
+
+        updated_contact_count = data_axle_service.get_count(polygon_params[:points])
+
+
+        if current_count < updated_contact_count && (current_count / updated_contact_count) < 0.9
+            contact_results = data_axle_service.get_contacts(polygon_params[:points])
+
+            # Destroy current contacts in polygon and replace them with updated list
+            current_contacts.destroy_all if current_count > 0
+            contacts = data_axle_service.save_contacts(contact_results)
+        else
+            contacts = current_contacts
+        end
+
+        render json: contacts.to_json, status: :ok
     end
+
+    private
+        def set_congregation
+            @cong = Congregation.find(params[:congregation_id])
+        end
+
+        def polygon_params
+            params.require(:path).permit(points: [:lng, :lat])
+        end
 end

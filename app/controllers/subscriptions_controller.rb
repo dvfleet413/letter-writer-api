@@ -18,7 +18,7 @@ class SubscriptionsController < ApplicationController
             customer: @cong.stripe_customer_id,
             items: [
                 {price: subscription_params[:price_id]}
-           ] 
+           ]
         })
 
         @cong.subscription = Subscription.create({
