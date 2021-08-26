@@ -5,18 +5,27 @@ class DataAxleService
     
     def get_count(path)
         # Use ?limit=0 to get count of documents without being charged. Can be useful for comparison when territory is updated
-        response = HTTParty.get('https://api.data-axle.com/v1/people/search?packages=standard_v3&limit=0', options(path))
+        response = HTTParty.post('https://api.data-axle.com/v1/people/scan?packages=standard_v3&limit=0', options(path))
 
-        return response["count"]
+        return {count: response["count"], scroll_id: response["scroll_id"]}
     end
 
-    def get_contacts(path)
-        response = HTTParty.get('https://api.data-axle.com/v1/people/search?packages=standard_v3', options(path))
+    def get_contacts(scroll_id)
+        contacts = []
 
-        return response["documents"]
+        loop do
+            response = HTTParty.get("https://api.data-axle.com/v1/people/scan/#{scroll_id}?packages=standard_v3", headers: {"X-AUTH-TOKEN": ENV["DATA_AXLE_API_KEY"]})
+            
+            break if response.length == 0
+
+            contacts += response
+        end
+
+        return contacts
     end
 
     def save_contacts(contacts)
+        binding.pry
         # use map so an array of the newly saved Contact objects is returned
         # when this method is called in controller
         contacts.map do |contact|
