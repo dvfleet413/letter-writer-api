@@ -11,8 +11,12 @@ class ApplicationController < ActionController::API
         JWT.encode(payload, ENV["JWT_TOKEN_SECRET"])
     end 
 
-    def decode_token_and_get_user_id
+    def decode_token_and_get_user_id(token = nil)
         headers = ActionDispatch::Http::Headers.from_hash(request.env)
-        JWT.decode(headers["HTTP_AUTH"], ENV["JWT_TOKEN_SECRET"])[0]["id"]
+        if headers["HTTP_AUTH"]
+            return JWT.decode(headers["HTTP_AUTH"], ENV["JWT_TOKEN_SECRET"])[0]["id"]
+        else
+            return JWT.decode(token, ENV["JWT_TOKEN_SECRET"])[0]["id"]
+        end
     end
 end

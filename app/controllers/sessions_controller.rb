@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
     def create
-        @user = User.find_by(name: params[:username])
+        @user = User.find_by(email: params[:username])
+
         if @user && @user.authenticate(params[:password])
             token = generate_token({id: @user.id})
             resp = {

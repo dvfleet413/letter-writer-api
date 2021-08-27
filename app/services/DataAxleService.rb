@@ -25,7 +25,6 @@ class DataAxleService
     end
 
     def save_contacts(contacts)
-        binding.pry
         # use map so an array of the newly saved Contact objects is returned
         # when this method is called in controller
         contacts.map do |contact|

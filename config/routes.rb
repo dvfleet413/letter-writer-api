@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     post '/logout', to: "sessions#destroy"
     get '/get_current_user', to: "sessions#get_current_user"
     get '/get_daily_text', to: "text#todays_text"
+    post '/confirm', to: "users#confirm"
 
     resources :congregations do
       resources :users, only: [:index, :create]
@@ -13,10 +14,10 @@ Rails.application.routes.draw do
         resources :dncs
         resources :assignments
         resources :external_contacts, only: [:index]
+        resources :contacts, only: [:index]
       end
       resources :dncs, only: [:index, :create]
       resources :subscriptions
-      resources :contacts, only: [:index]
     end
     # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   end

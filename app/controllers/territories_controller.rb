@@ -1,8 +1,17 @@
 class TerritoriesController < ApplicationController
 
     def index
-        territories = Territory.all
+        set_congregation
+        territories = @congregation.territories
         render json: territories.to_json(only: [:id, :name])
+    end
+
+    def create
+        set_congregation
+        territory = Territory.new(name: territory_params[:name])
+        territory.points.build(territory_params[:points])
+        @congregation.territories << territory
+        render json: {message: "ok", territory: territory}, status: :ok
     end
 
     def show
@@ -33,6 +42,6 @@ class TerritoriesController < ApplicationController
         end
 
         def territory_params
-            params.require(:territory).permit(points: [:lng, :lat])
+            params.require(:territory).permit(:name, points: [:lng, :lat])
         end
 end

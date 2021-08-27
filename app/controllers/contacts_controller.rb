@@ -1,9 +1,15 @@
 class ContactsController < ApplicationController
     def index
         set_congregation
+        set_territory
+
+        if @territory.congregation != @cong
+            render json: {"message": "territory does not belong to congregation"}, status: :unauthorized
+        end
+
         data_axle_service = DataAxleService.new(@cong)
 
-        polygon = polygon_params[:points].map { |point| [point["lat"], point["lng"]] }
+        polygon = @territory.polygon
 
         current_contacts = Contact.all.select do |contact|            
             if GPSTools.in_polygon?(polygon, [contact.lat, contact.lng])
@@ -14,7 +20,7 @@ class ContactsController < ApplicationController
         end
 
         current_count = current_contacts.length
-        updated_contact_info = data_axle_service.get_count(polygon_params[:points])
+        updated_contact_info = data_axle_service.get_count(polygon)
         updated_contact_count = updated_contact_info[:count]
         scroll_id = updated_contact_info[:scroll_id]
 
@@ -36,7 +42,7 @@ class ContactsController < ApplicationController
             @cong = Congregation.find(params[:congregation_id])
         end
 
-        def polygon_params
-            params.require(:path).permit(points: [:lng, :lat])
+        def set_territory
+            @territory = Territory.find(params[:territory_id])
         end
 end
