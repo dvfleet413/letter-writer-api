@@ -7,4 +7,12 @@ class Territory < ApplicationRecord
     def polygon
         self.points.map {|point| [point["lat"], point["lng"]]}
     end
+
+    def data_axle_polygon
+        self.points.map{|point| {lat: point.lat, lon: point.lng}}
+    end
+
+    def sorted_assignments
+        self.assignments.order(:checked_out)
+    end
 end

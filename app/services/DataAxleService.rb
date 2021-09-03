@@ -25,13 +25,14 @@ class DataAxleService
     end
 
     def save_contacts(contacts)
-        # use map so an array of the newly saved Contact objects is returned
-        # when this method is called in controller
         contacts.map do |contact|
             Contact.create(
                 name: "#{contact["first_name"]} #{contact["last_name"]}",
-                phone: contact["phones"] && contact["phones"].length > 0 ? contact["phones"][0] : "Not Available",
                 address: "#{contact["street"]}\n#{contact["city"]}, #{contact["state"]}  #{contact["postal_code"]}",
+                street: contact["street"],
+                city: contact["city"],
+                state: contact["state"],
+                zip: contact["postal_code"],
                 lat: contact["geocoordinate"]["lat"],
                 lng: contact["geocoordinate"]["lon"],
                 lang: contact["estimated_language"]
