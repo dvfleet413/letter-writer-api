@@ -30,6 +30,18 @@ class AssignmentsController < ApplicationController
         render json: {message: "ok"}, status: :ok
     end
 
+    def in_progress
+        publisher = User.find(params[:user_id]).name
+        assignments = Assignment.where("publisher = ?", publisher)
+        render json: assignments.in_progress, each_serializer: AssignmentSerializer
+    end
+
+    def completed
+        publisher = User.find(params[:user_id]).name
+        assignments = Assignment.where("publisher = ?", publisher)
+        render json: assignments.completed, each_serializer: AssignmentSerializer
+    end
+
     private
         def assignment_params
             params.require(:assignment).permit(:checked_out, :checked_in, :publisher)

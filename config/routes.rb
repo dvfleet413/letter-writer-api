@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     get '/get_current_user', to: "sessions#get_current_user"
     get '/get_daily_text', to: "text#todays_text"
     post '/confirm', to: "users#confirm"
+    get '/assignments/in_progress', to: "assignments#in_progress"
+    get '/assignments/completed', to: "assignments#completed"
 
     resources :congregations do
       resources :users, only: [:index, :create]

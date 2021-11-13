@@ -31,6 +31,7 @@ gem 'httparty'
 gem 'nokogiri'
 gem 'open-uri'
 gem 'gps_tools'
+gem 'active_model_serializers'
 
 gem 'stripe'
 

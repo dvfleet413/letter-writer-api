@@ -19,6 +19,6 @@ class SessionsController < ApplicationController
     end
 
     def get_current_user
-        render json: { user: UserSerializer.new(current_user).to_serialized_json }, status: :ok
+        render json: { user: UserSerializer.new(logged_in_user).to_serialized_json }, status: :ok
     end
 end
