@@ -15,6 +15,11 @@ class AssignmentsController < ApplicationController
         end
     end
 
+    def show
+        set_assignment
+        render json: @assignment
+    end
+
     def update
         set_assignment
         if @assignment.update(assignment_params)

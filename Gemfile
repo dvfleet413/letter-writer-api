@@ -30,7 +30,7 @@ gem 'jwt'
 gem 'httparty'
 gem 'nokogiri'
 gem 'open-uri'
-gem 'gps_tools'
+gem 'gps_tools', '0.1.2'
 gem 'active_model_serializers'
 
 gem 'stripe'
