@@ -3,7 +3,7 @@ class TerritoriesController < ApplicationController
     def index
         set_congregation
         territories = @congregation.territories
-        render json: territories.to_json(methods: :sorted_assignments, only: [:id, :name])
+        render json: territories
     end
 
     def create
@@ -16,7 +16,8 @@ class TerritoriesController < ApplicationController
 
     def show
         territory = Territory.find(params[:id])
-        render json: territory.to_json(include: [{points: {only: [:lat, :lng]}}, :dncs], methods: :sorted_assignments, only: :name)
+        # render json: territory.to_json(include: [{points: {only: [:lat, :lng]}}, :dncs], methods: :sorted_assignments, only: :name)
+        render json: territory
     end
 
     def update
