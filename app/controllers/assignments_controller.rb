@@ -36,15 +36,13 @@ class AssignmentsController < ApplicationController
     end
 
     def in_progress
-        publisher = User.find(params[:user_id]).name
-        assignments = Assignment.where("publisher = ?", publisher)
-        render json: assignments.in_progress, each_serializer: AssignmentSerializer
+        publisher = User.find(params[:user_id])
+        render json: publisher.assignments.in_progress, each_serializer: AssignmentSerializer
     end
 
     def completed
-        publisher = User.find(params[:user_id]).name
-        assignments = Assignment.where("publisher = ?", publisher)
-        render json: assignments.completed, each_serializer: AssignmentSerializer
+        publisher = User.find(params[:user_id])
+        render json: publisher.assignments.completed, each_serializer: AssignmentSerializer
     end
 
     private
