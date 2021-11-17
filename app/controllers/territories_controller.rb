@@ -3,7 +3,7 @@ class TerritoriesController < ApplicationController
     def index
         set_congregation
         territories = @congregation.territories
-        render json: territories
+        render json: territories, each_serializer: TerritoriesSerializer
     end
 
     def create
