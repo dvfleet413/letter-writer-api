@@ -1,7 +1,7 @@
 class Territory < ApplicationRecord
     has_many :points
     has_many :dncs
-    has_many :assignments
+    has_many :assignments,  -> { order "checked_out asc" }
     belongs_to :congregation
 
     def polygon

@@ -1,10 +1,14 @@
 class AssignmentSerializer < ActiveModel::Serializer
   attributes :id,
-             :publisher,
+             :user,
              :checked_out,
              :checked_in,
              :territory,
              :contacts
+  
+  def user
+    object.user
+  end
   
   def territory
     object.territory
