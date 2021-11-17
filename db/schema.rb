@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_17_022743) do
+ActiveRecord::Schema.define(version: 2021_11_17_145651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,8 @@ ActiveRecord::Schema.define(version: 2021_11_17_022743) do
     t.bigint "congregation_id", null: false
     t.string "role"
     t.string "email"
+    t.boolean "account_access"
+    t.boolean "confirmed", default: false, null: false
     t.index ["congregation_id"], name: "index_users_on_congregation_id"
   end
 

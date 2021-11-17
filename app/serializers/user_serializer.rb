@@ -7,7 +7,6 @@ class UserSerializer
         @user.to_json(:include => {
             :congregation => {:only => [:id, :name, :api_access]}
         },
-        :only => [:id, :name, :role, :email])
+        :only => [:id, :name, :role, :email, :account_access])
     end
-
 end

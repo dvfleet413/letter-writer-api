@@ -9,14 +9,17 @@ class UsersController < ApplicationController
         set_congregation
         user = User.new(
             name: user_params[:name],
-            role: "Admin",
+            role: user_params[:role],
             email: user_params[:email].downcase,
+            account_access: user_params[:account_access],
             congregation: @congregation,
             password: SecureRandom.base64(10)
         )
         if user.save
-            confirmation_url = "#{ENV["FRONTEND_URL"]}/confirm/#{generate_token({id: user.id})}"
-            UserMailer.with(user: user, confirmation_url: confirmation_url).confirmation_email.deliver_later
+            if user.account_access
+                confirmation_url = "#{ENV["FRONTEND_URL"]}/confirm/#{generate_token({id: user.id})}"
+                UserMailer.with(user: user, confirmation_url: confirmation_url).confirmation_email.deliver_later 
+            end
             render json: UserSerializer.new(user).to_serialized_json
         else
             render json: {"message": "unable to create user"}, status: :bad_request
@@ -42,7 +45,7 @@ class UsersController < ApplicationController
 
     private
         def user_params
-            params.require(:user).permit(:name, :password, :email, :role, :token)
+            params.require(:user).permit(:name, :password, :email, :role, :account_access, :token)
         end
 
         def set_congregation
