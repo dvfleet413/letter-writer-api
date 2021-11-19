@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     get '/assignments/completed', to: "assignments#completed"
 
     resources :congregations do
-      resources :users, only: [:index, :create]
+      resources :users, only: [:index, :show, :create, :update]
       resources :external_contacts, only: [:index, :create, :destroy]
       resources :territories, only: [:create, :index, :show, :update] do 
         resources :dncs

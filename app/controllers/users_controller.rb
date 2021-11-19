@@ -5,6 +5,11 @@ class UsersController < ApplicationController
         render json: resp
     end
 
+    def show
+        set_user
+        render json: @user, each_serializer: :PersonSerializer
+    end
+
     def create
         set_congregation
         user = User.new(
@@ -28,10 +33,10 @@ class UsersController < ApplicationController
 
     def update
         set_congregation
-        user = User.find(params[:id])
-        user.update(user_params)
-        user.save
-        render json: UserSerializer.new(user).to_serialized_json
+        set_user
+        @user.update(user_params)
+        @user.save
+        render json: @user, each_serializer: :PersonSerializer
     end
 
     def confirm
@@ -46,6 +51,10 @@ class UsersController < ApplicationController
     private
         def user_params
             params.require(:user).permit(:name, :password, :email, :role, :account_access, :token)
+        end
+
+        def set_user
+            @user = User.find(params[:id])
         end
 
         def set_congregation
