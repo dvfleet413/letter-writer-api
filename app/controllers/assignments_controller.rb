@@ -47,7 +47,7 @@ class AssignmentsController < ApplicationController
 
     private
         def assignment_params
-            params.require(:assignment).permit(:checked_out, :checked_in, :publisher)
+            params.require(:assignment).permit(:checked_out, :checked_in, :user_id)
         end
 
         def set_congregation
