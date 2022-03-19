@@ -14,6 +14,7 @@ class ExternalContactsController < ApplicationController
 
     def create
         set_congregation
+        @congregation.external_contacts.destroy_all
         BulkImportJob.perform_later(external_contacts_params[:contacts], @congregation)
         render json: {message: "ok"}.to_json
     end
