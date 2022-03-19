@@ -2,6 +2,7 @@ class BulkImportJob < ApplicationJob
   queue_as :default
 
   def perform(contacts, congregation)
+    congregation.external_contacts.destroy_all
     contacts.each do |row|
       if row[:zipCode].length == 3
           zipCode = "00#{row[:zipCode]}"
@@ -16,6 +17,7 @@ class BulkImportJob < ApplicationJob
           address: "#{row[:address]}\n#{row[:city]}, #{row[:state]}  #{zipCode}",
           lat: row[:lat],
           lng: row[:lng],
+          ownership: row[:ownership],
           lang: row[:lang])
       end
   end
